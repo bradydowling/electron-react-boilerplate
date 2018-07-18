@@ -11,7 +11,10 @@
  * @flow
  */
 import { app, BrowserWindow } from 'electron';
+import { autoUpdater } from 'electron-updater';
 import MenuBuilder from './menu';
+
+autoUpdater.checkForUpdatesAndNotify();
 
 let mainWindow = null;
 
