@@ -1,7 +1,7 @@
 {
   "name": "electron-react-boilerplate",
   "productName": "ElectronReact",
-  "version": "0.13.6",
+  "version": "0.13.25",
   "repository": "github:bradydowling/electron-react-boilerplate",
   "description": "Electron application boilerplate based on React, React Router, Webpack, React Hot Loader for rapid application development",
   "scripts": {
@@ -52,18 +52,10 @@
       "main.prod.js.map",
       "package.json"
     ],
-    "dmg": {
-      "contents": [
-        {
-          "x": 130,
-          "y": 220
-        },
-        {
-          "x": 410,
-          "y": 220,
-          "type": "link",
-          "path": "/Applications"
-        }
+    "mac": {
+      "target": [
+        "zip",
+        "dmg"
       ]
     },
     "win": {
@@ -86,18 +78,14 @@
   "publish": {
     "provider": "github"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/chentsulin/electron-react-boilerplate.git"
-  },
   "author": {
-    "name": "C. T. Lin",
-    "email": "chentsulin@gmail.com",
-    "url": "https://github.com/chentsulin"
+    "name": "Brady Dowling",
+    "email": "bradydowling@gmail.com",
+    "url": "https://github.com/bradydowling"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/chentsulin/electron-react-boilerplate/issues"
+    "url": "https://github.com/bradydowling/electron-react-boilerplate/issues"
   },
   "keywords": [
     "electron",
@@ -110,7 +98,7 @@
     "hot",
     "reload"
   ],
-  "homepage": "https://github.com/chentsulin/electron-react-boilerplate#readme",
+  "homepage": "https://github.com/bradydowling/electron-react-boilerplate#readme",
   "jest": {
     "moduleNameMapper": {
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/internals/mocks/fileMock.js",
@@ -206,9 +194,12 @@
   "dependencies": {
     "devtron": "^1.4.0",
     "electron-debug": "^1.5.0",
+    "electron-log": "^2.2.16",
     "electron-updater": "^3.0.3",
     "font-awesome": "^4.7.0",
     "history": "^4.7.2",
+    "install": "^0.12.1",
+    "npm": "^6.2.0",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
     "react-hot-loader": "^4.2.0",

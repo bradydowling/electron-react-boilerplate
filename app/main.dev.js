@@ -10,11 +10,15 @@
  *
  * @flow
  */
-import { app, BrowserWindow } from 'electron';
-import { autoUpdater } from 'electron-updater';
+import { app, BrowserWindow, dialog } from 'electron';
 import MenuBuilder from './menu';
 
-autoUpdater.checkForUpdatesAndNotify();
+const log = require('electron-log');
+const { autoUpdater } = require('electron-updater');
+
+autoUpdater.logger = log;
+autoUpdater.logger.transports.file.level = 'info';
+log.info('App starting...');
 
 let mainWindow = null;
 
@@ -56,6 +60,7 @@ app.on('window-all-closed', () => {
 });
 
 app.on('ready', async () => {
+  autoUpdater.checkForUpdates();
   if (
     process.env.NODE_ENV === 'development' ||
     process.env.DEBUG_PROD === 'true'
@@ -87,4 +92,43 @@ app.on('ready', async () => {
 
   const menuBuilder = new MenuBuilder(mainWindow);
   menuBuilder.buildMenu();
+});
+
+autoUpdater.on('checking-for-update', () => {
+  dialog.showMessageBox({
+    type: 'info',
+    title: 'mytitle',
+    message: 'checking for updates'
+  });
+  console.log('checking for updates');
+});
+autoUpdater.on('update-available', info => {
+  dialog.showMessageBox({
+    type: 'info',
+    title: 'mytitle',
+    message: 'update available'
+  });
+  console.log('update available');
+  console.log(info);
+});
+autoUpdater.on('update-not-available', info => {
+  dialog.showMessageBox({
+    type: 'info',
+    title: 'update not available',
+    message: typeof info === 'string' ? info : JSON.parse(info, null, 4)
+  });
+  console.log('update not available');
+  console.log(info);
+});
+autoUpdater.on('error', err => {
+  dialog.showMessageBox({
+    type: 'error',
+    title: 'update error',
+    message: typeof info === 'string' ? err : JSON.parse(err, null, 4)
+  });
+  console.log(err);
+});
+autoUpdater.on('download-progress', () => {});
+autoUpdater.on('update-downloaded', () => {
+  autoUpdater.quitAndInstall();
 });
